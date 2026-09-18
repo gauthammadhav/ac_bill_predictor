@@ -26,7 +26,7 @@ if st.button("Predict Electric Bill"):
     if ac_units <= 9 or ac_units >= 150:
 
         st.error(
-            "AC Units must be greater than 0 and less than 150."
+            "AC Units out of range."
         )
 
     else:
