@@ -23,7 +23,7 @@ ac_units = st.number_input(
 
 if st.button("Predict Electric Bill"):
 
-    if ac_units <= 0 or ac_units >= 150:
+    if ac_units <= 9 or ac_units >= 150:
 
         st.error(
             "AC Units must be greater than 0 and less than 150."
