@@ -1,16 +1,16 @@
 import streamlit as st
 import pandas as pd
 import joblib
+import textwrap
 
 # --------------------------------------------------
 # PAGE CONFIG
 # --------------------------------------------------
 
 st.set_page_config(
-    page_title="Billwise — Electric Bill Predictor",
+    page_title="Billwise",
     page_icon="⚡",
-    layout="wide",
-    initial_sidebar_state="collapsed"
+    layout="wide"
 )
 
 # --------------------------------------------------
@@ -31,10 +31,6 @@ st.markdown("""
 
 @import url('https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Space+Grotesk:wght@400;500;600;700&display=swap');
 
-/* ------------------------------
-   GLOBAL
------------------------------- */
-
 .stApp {
     background: #F7F7F5;
     color: #111111;
@@ -43,10 +39,8 @@ st.markdown("""
 
 .block-container {
     max-width: 1180px;
-    padding: 0rem 2rem 4rem 2rem;
+    padding: 0 2rem 4rem 2rem;
 }
-
-/* Hide Streamlit chrome */
 
 header {
     visibility: hidden;
@@ -60,9 +54,7 @@ footer {
     visibility: hidden;
 }
 
-/* ------------------------------
-   NAVBAR
------------------------------- */
+/* NAVBAR */
 
 .navbar {
     height: 76px;
@@ -80,7 +72,6 @@ footer {
     font-family: 'Space Grotesk', sans-serif;
     font-size: 20px;
     font-weight: 700;
-    letter-spacing: -0.5px;
 }
 
 .logo-icon {
@@ -88,11 +79,10 @@ footer {
     height: 34px;
     border-radius: 10px;
     background: #111111;
-    color: #FFFFFF;
+    color: white;
     display: flex;
     align-items: center;
     justify-content: center;
-    font-size: 16px;
 }
 
 .nav-right {
@@ -100,9 +90,7 @@ footer {
     font-size: 13px;
 }
 
-/* ------------------------------
-   HERO
------------------------------- */
+/* HERO */
 
 .hero {
     max-width: 800px;
@@ -116,7 +104,7 @@ footer {
     padding: 7px 12px;
     border: 1px solid #DEDED9;
     border-radius: 999px;
-    background: #FFFFFF;
+    background: white;
     color: #666666;
     font-size: 12px;
     font-weight: 600;
@@ -152,22 +140,10 @@ footer {
     line-height: 1.6;
 }
 
-/* ------------------------------
-   MAIN GRID
------------------------------- */
-
-.main-grid {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 18px;
-}
-
-/* ------------------------------
-   CARDS
------------------------------- */
+/* CARDS */
 
 .card {
-    background: #FFFFFF;
+    background: white;
     border: 1px solid #E4E4DF;
     border-radius: 24px;
     padding: 30px;
@@ -178,7 +154,6 @@ footer {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    margin-bottom: 45px;
 }
 
 .card-label {
@@ -200,25 +175,22 @@ footer {
     color: #777777;
 }
 
-/* ------------------------------
-   INPUT AREA
------------------------------- */
-
 .input-title {
     font-family: 'Space Grotesk', sans-serif;
     font-size: 28px;
     font-weight: 600;
     letter-spacing: -1px;
-    margin-bottom: 8px;
+    margin-top: 45px;
 }
 
 .input-description {
     color: #888888;
     font-size: 14px;
+    margin-top: 8px;
     margin-bottom: 25px;
 }
 
-/* Streamlit input */
+/* INPUT */
 
 div[data-baseweb="input"] {
     background: #F7F7F5 !important;
@@ -239,15 +211,11 @@ input {
     color: #111111 !important;
 }
 
-/* Hide label */
-
 div[data-testid="stNumberInput"] label {
     display: none;
 }
 
-/* ------------------------------
-   BUTTON
------------------------------- */
+/* BUTTON */
 
 .stButton {
     margin-top: 20px;
@@ -263,23 +231,21 @@ div[data-testid="stNumberInput"] label {
     font-family: 'DM Sans', sans-serif;
     font-size: 14px;
     font-weight: 600;
-    transition: all 0.2s ease;
+    transition: 0.2s;
 }
 
 .stButton > button:hover {
     background: #2A2A2A;
-    transform: translateY(-1px);
+    transform: translateY(-2px);
 }
 
-/* ------------------------------
-   RESULT CARD
------------------------------- */
+/* RESULT */
 
 .result-card {
     position: relative;
     overflow: hidden;
     background: #111111;
-    color: #FFFFFF;
+    color: white;
     border-radius: 24px;
     padding: 30px;
     min-height: 360px;
@@ -300,10 +266,6 @@ div[data-testid="stNumberInput"] label {
 .result-content {
     position: relative;
     z-index: 2;
-}
-
-.result-card .card-label {
-    color: #777777;
 }
 
 .result-title {
@@ -337,13 +299,9 @@ div[data-testid="stNumberInput"] label {
     font-size: 12px;
 }
 
-/* ------------------------------
-   EMPTY RESULT
------------------------------- */
-
 .empty-result {
     margin-top: 70px;
-    color: #666666;
+    color: #777777;
     font-size: 14px;
     line-height: 1.6;
 }
@@ -353,9 +311,7 @@ div[data-testid="stNumberInput"] label {
     margin-bottom: 18px;
 }
 
-/* ------------------------------
-   MODEL INFO
------------------------------- */
+/* MODEL INFO */
 
 .model-info {
     display: grid;
@@ -387,10 +343,6 @@ div[data-testid="stNumberInput"] label {
     font-weight: 600;
 }
 
-/* ------------------------------
-   FOOTER
------------------------------- */
-
 .footer {
     margin-top: 35px;
     display: flex;
@@ -399,10 +351,6 @@ div[data-testid="stNumberInput"] label {
     font-size: 11px;
 }
 
-/* ------------------------------
-   RESPONSIVE
------------------------------- */
-
 @media (max-width: 800px) {
 
     .hero h1 {
@@ -410,77 +358,62 @@ div[data-testid="stNumberInput"] label {
         letter-spacing: -2px;
     }
 
-    .main-grid {
-        grid-template-columns: 1fr;
-    }
-
     .navbar {
         margin-bottom: 55px;
     }
 
-    .card,
-    .result-card {
-        min-height: 320px;
-    }
 }
 
 </style>
 """, unsafe_allow_html=True)
 
-
 # --------------------------------------------------
 # NAVBAR
 # --------------------------------------------------
 
-st.markdown("""
+st.markdown(textwrap.dedent("""
 <div class="navbar">
-
-    <div class="logo">
-        <div class="logo-icon">⚡</div>
-        Billwise
-    </div>
-
-    <div class="nav-right">
-        ML-powered electricity estimation
-    </div>
-
+<div class="logo">
+<div class="logo-icon">⚡</div>
+Billwise
 </div>
-""", unsafe_allow_html=True)
-
+<div class="nav-right">
+ML-powered electricity estimation
+</div>
+</div>
+"""), unsafe_allow_html=True)
 
 # --------------------------------------------------
 # HERO
 # --------------------------------------------------
 
-st.markdown("""
+st.markdown(textwrap.dedent("""
 <div class="hero">
 
-    <div class="eyebrow">
-        <div class="eyebrow-dot"></div>
-        POLYNOMIAL REGRESSION
-    </div>
+<div class="eyebrow">
+<div class="eyebrow-dot"></div>
+POLYNOMIAL REGRESSION
+</div>
 
-    <h1>
-        Electricity bill,<br>
-        <span>made predictable.</span>
-    </h1>
+<h1>
+Electricity bill,<br>
+<span>made predictable.</span>
+</h1>
 
-    <p>
-        Estimate your monthly electricity bill based on
-        AC electricity consumption using a trained
-        polynomial regression model.
-    </p>
+<p>
+Estimate your monthly electricity bill based on
+AC electricity consumption using a trained
+polynomial regression model.
+</p>
 
 </div>
-""", unsafe_allow_html=True)
-
+"""), unsafe_allow_html=True)
 
 # --------------------------------------------------
-# MAIN CARDS
+# COLUMNS
 # --------------------------------------------------
 
 col1, col2 = st.columns(2, gap="medium")
-
 
 # --------------------------------------------------
 # INPUT CARD
@@ -488,28 +421,23 @@ col1, col2 = st.columns(2, gap="medium")
 
 with col1:
 
-    st.markdown("""
+    st.markdown(textwrap.dedent("""
     <div class="card">
 
-        <div class="card-header">
-            <div class="card-label">
-                INPUT
-            </div>
+    <div class="card-header">
+    <div class="card-label">INPUT</div>
+    <div class="card-number">01</div>
+    </div>
 
-            <div class="card-number">
-                01
-            </div>
-        </div>
+    <div class="input-title">
+    AC consumption
+    </div>
 
-        <div class="input-title">
-            AC consumption
-        </div>
+    <div class="input-description">
+    Enter the electricity consumed by your AC.
+    </div>
 
-        <div class="input-description">
-            Enter the electricity consumed by your AC.
-        </div>
-
-    """, unsafe_allow_html=True)
+    """), unsafe_allow_html=True)
 
     ac_units = st.number_input(
         "AC Units",
@@ -519,14 +447,9 @@ with col1:
         label_visibility="collapsed"
     )
 
-    predict = st.button(
-        "Calculate estimated bill  →"
-    )
+    predict = st.button("Calculate estimated bill  →")
 
-    st.markdown("""
-    </div>
-    """, unsafe_allow_html=True)
-
+    st.markdown("</div>", unsafe_allow_html=True)
 
 # --------------------------------------------------
 # RESULT CARD
@@ -546,124 +469,125 @@ with col2:
 
         bill = prediction[0]
 
-        st.markdown(f"""
+        st.markdown(textwrap.dedent(f"""
         <div class="result-card">
 
-            <div class="result-glow"></div>
+        <div class="result-glow"></div>
 
-            <div class="result-content">
+        <div class="result-content">
 
-                <div class="card-header">
-                    <div class="card-label">
-                        ESTIMATION
-                    </div>
+        <div class="card-header">
 
-                    <div class="card-number">
-                        02
-                    </div>
-                </div>
+        <div class="card-label">
+        ESTIMATION
+        </div>
 
-                <div class="result-title">
-                    Estimated monthly bill
-                </div>
-
-                <div class="result-value">
-                    ₹{bill:,.2f}
-                </div>
-
-                <div class="result-period">
-                    Based on {ac_units:.0f} AC units
-                </div>
-
-                <div class="result-line"></div>
-
-                <div class="result-footnote">
-                    Generated using Polynomial Regression · Degree 2
-                </div>
-
-            </div>
+        <div class="card-number">
+        02
+        </div>
 
         </div>
-        """, unsafe_allow_html=True)
+
+        <div class="result-title">
+        Estimated monthly bill
+        </div>
+
+        <div class="result-value">
+        ₹{bill:,.2f}
+        </div>
+
+        <div class="result-period">
+        Based on {ac_units:.0f} AC units
+        </div>
+
+        <div class="result-line"></div>
+
+        <div class="result-footnote">
+        Generated using Polynomial Regression · Degree 2
+        </div>
+
+        </div>
+        </div>
+        """), unsafe_allow_html=True)
 
     else:
 
-        st.markdown("""
+        st.markdown(textwrap.dedent("""
         <div class="result-card">
 
-            <div class="result-glow"></div>
+        <div class="result-glow"></div>
 
-            <div class="result-content">
+        <div class="result-content">
 
-                <div class="card-header">
-                    <div class="card-label">
-                        ESTIMATION
-                    </div>
+        <div class="card-header">
 
-                    <div class="card-number">
-                        02
-                    </div>
-                </div>
+        <div class="card-label">
+        ESTIMATION
+        </div>
 
-                <div class="empty-result">
-
-                    <div class="empty-icon">
-                        ◌
-                    </div>
-
-                    <strong style="color:#FFFFFF;">
-                        Your estimate will appear here.
-                    </strong>
-
-                    <br><br>
-
-                    Enter your AC consumption and
-                    calculate an estimated monthly bill.
-
-                </div>
-
-            </div>
+        <div class="card-number">
+        02
+        </div>
 
         </div>
-        """, unsafe_allow_html=True)
 
+        <div class="empty-result">
+
+        <div class="empty-icon">
+        ◌
+        </div>
+
+        <strong style="color:#FFFFFF;">
+        Your estimate will appear here.
+        </strong>
+
+        <br><br>
+
+        Enter your AC consumption and
+        calculate an estimated monthly bill.
+
+        </div>
+
+        </div>
+        </div>
+        """), unsafe_allow_html=True)
 
 # --------------------------------------------------
-# MODEL INFORMATION
+# MODEL INFO
 # --------------------------------------------------
 
-st.markdown("""
+st.markdown(textwrap.dedent("""
 <div class="model-info">
 
-    <div class="info-item">
-        <div class="info-label">
-            Model
-        </div>
-        <div class="info-value">
-            Polynomial Regression
-        </div>
-    </div>
+<div class="info-item">
+<div class="info-label">
+MODEL
+</div>
+<div class="info-value">
+Polynomial Regression
+</div>
+</div>
 
-    <div class="info-item">
-        <div class="info-label">
-            Polynomial degree
-        </div>
-        <div class="info-value">
-            2
-        </div>
-    </div>
+<div class="info-item">
+<div class="info-label">
+POLYNOMIAL DEGREE
+</div>
+<div class="info-value">
+2
+</div>
+</div>
 
 </div>
 
 <div class="footer">
 
-    <div>
-        Billwise · Electric Bill Predictor
-    </div>
+<div>
+Billwise · Electric Bill Predictor
+</div>
 
-    <div>
-        Built with Python + Scikit-learn + Streamlit
-    </div>
+<div>
+Built with Python + Scikit-learn + Streamlit
+</div>
 
 </div>
-""", unsafe_allow_html=True)
+"""), unsafe_allow_html=True)
